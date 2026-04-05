@@ -697,9 +697,79 @@ textarea {
   padding: 24px 0 72px;
 }
 
-.debate-main {
+.debate-hero--centered {
+  padding: 28px 0 16px;
+}
+
+.debate-hero--centered .debate-grid {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.debate-hero--centered .container {
+  display: block;
+}
+
+.hero-center--debate {
+  max-width: 920px;
+  width: 100%;
+  padding: 0 0 18px;
+  justify-items: stretch;
+  text-align: left;
+}
+
+.debate-overview {
   display: grid;
-  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.overview-card {
+  padding: 18px 20px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow-light);
+  text-align: left;
+}
+
+.overview-card strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.overview-card p {
+  margin-top: 8px;
+  color: var(--text-light-soft);
+  font-size: 0.92rem;
+}
+
+.overview-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.overview-card--support {
+  border-color: rgba(125, 223, 154, 0.5);
+  background: linear-gradient(180deg, rgba(125, 223, 154, 0.12), rgba(255, 255, 255, 0.92));
+}
+
+.overview-card--oppose {
+  border-color: rgba(255, 157, 157, 0.5);
+  background: linear-gradient(180deg, rgba(255, 157, 157, 0.12), rgba(255, 255, 255, 0.92));
+}
+
+.overview-card--neutral {
+  border-color: rgba(255, 216, 120, 0.55);
+  background: linear-gradient(180deg, rgba(255, 216, 120, 0.14), rgba(255, 255, 255, 0.92));
 }
 
 .back-link {
@@ -713,33 +783,78 @@ textarea {
   text-transform: uppercase;
 }
 
+.page-debate .back-link {
+  justify-self: start;
+}
+
 .topic-header,
 .debate-sidecard {
   padding: 28px;
 }
 
-.topic-header .meta {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.debate-sidecard {
-  align-self: start;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.66)),
-    radial-gradient(circle at top right, rgba(189, 187, 255, 0.3), transparent 44%);
+.page-debate .topic-header {
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  color: var(--text-light);
   box-shadow: var(--shadow-light);
+  padding: 22px 24px;
 }
 
-.research-section--debate {
-  padding-top: 72px;
+.page-debate .topic-header .meta {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.page-debate .topic-header h2 {
+  font-size: 1.02rem;
+  line-height: 1.5;
+  letter-spacing: -0.18px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.page-debate .topic-header p {
+  color: var(--text-light-soft);
+  margin-top: 12px;
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.debate-content {
+  padding: 18px 0 88px;
+  background: transparent;
 }
 
 .debate-flow {
   display: grid;
   gap: 24px;
+}
+
+.page-debate .topics-shell {
+  max-width: 920px;
+}
+
+.page-debate .section-heading {
+  grid-template-columns: 1fr;
+  margin-bottom: 20px;
+}
+
+.page-debate .opinions-section {
+  position: relative;
+  padding: 22px 22px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: var(--shadow-light);
+}
+
+.page-debate .opinions-section::before {
+  content: "";
+  position: absolute;
+  left: 28px;
+  top: 92px;
+  bottom: 20px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(189, 187, 255, 0.4), rgba(0, 0, 0, 0.04));
+  pointer-events: none;
 }
 
 .admin-access-section,
@@ -812,8 +927,68 @@ textarea {
   color: #d2d1ff;
 }
 
+.page-debate .admin-access-card,
+.page-debate .composer-card,
+.page-debate .opinion-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-light);
+}
+
+.page-debate .composer-copy p,
+.page-debate .admin-access-card p,
+.page-debate .opinion-card .opinion-body,
+.page-debate .form-feedback {
+  color: var(--text-light-soft);
+}
+
+.page-debate .admin-access-card .eyebrow,
+.page-debate .composer-card .eyebrow {
+  color: rgba(0, 0, 0, 0.58);
+}
+
+.page-debate .field span {
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.page-debate .field input,
+.page-debate .field select,
+.page-debate .field textarea {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text-light);
+}
+
+.page-debate .secondary-button {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.page-debate .button-glass {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: var(--border-light);
+  color: var(--text-light);
+}
+
 .opinion-card {
   margin-bottom: 16px;
+}
+
+.page-debate .opinion-card {
+  position: relative;
+  padding: 24px 24px 24px 28px;
+}
+
+.page-debate .opinion-card::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 28px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.96);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  background: #d8d8e8;
 }
 
 .opinion-card.support {
@@ -826,6 +1001,30 @@ textarea {
 
 .opinion-card.neutral {
   border-left: 3px solid var(--neutral);
+}
+
+.page-debate .opinion-card.support::before {
+  background: var(--support);
+}
+
+.page-debate .opinion-card.oppose::before {
+  background: var(--oppose);
+}
+
+.page-debate .opinion-card.neutral::before {
+  background: var(--neutral);
+}
+
+.page-debate .opinion-card--root.support {
+  background: linear-gradient(180deg, rgba(125, 223, 154, 0.1), rgba(255, 255, 255, 0.96) 42%);
+}
+
+.page-debate .opinion-card--root.oppose {
+  background: linear-gradient(180deg, rgba(255, 157, 157, 0.1), rgba(255, 255, 255, 0.96) 42%);
+}
+
+.page-debate .opinion-card--root.neutral {
+  background: linear-gradient(180deg, rgba(255, 216, 120, 0.12), rgba(255, 255, 255, 0.96) 42%);
 }
 
 .opinion-card .opinion-header,
@@ -845,6 +1044,10 @@ textarea {
   color: var(--text-dark);
   font-size: 1rem;
   letter-spacing: -0.2px;
+}
+
+.page-debate .opinion-card .agent-name {
+  color: var(--text-light);
 }
 
 .stance-support {
@@ -888,7 +1091,45 @@ textarea {
 .opinion-replies {
   margin-left: 24px;
   padding-left: 18px;
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.page-debate .opinion-card--reply {
+  background: rgba(250, 250, 255, 0.98);
+  padding: 18px 18px 18px 22px;
+  box-shadow: rgba(1, 1, 32, 0.06) 0 8px 16px;
+}
+
+.page-debate .opinion-card--reply::before {
+  width: 12px;
+  height: 12px;
+  left: -6px;
+  top: 24px;
+}
+
+.page-debate .opinion-card--reply::after {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 29px;
+  width: 12px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.page-debate .opinion-card--reply .agent-name {
+  font-size: 0.95rem;
+}
+
+.page-debate .opinion-card--reply .opinion-body {
+  font-size: 0.92rem;
+  line-height: 1.48;
+}
+
+.page-debate .opinion-replies {
+  margin-left: 28px;
+  padding-left: 20px;
+  border-left: 2px dashed rgba(189, 187, 255, 0.4);
 }
 
 .empty-state {
@@ -914,6 +1155,10 @@ textarea {
   font-size: 0.72rem;
 }
 
+.page-debate .time-label {
+  color: rgba(0, 0, 0, 0.5);
+}
+
 @media (max-width: 991px) {
   .hero-grid,
   .debate-grid,
@@ -936,6 +1181,14 @@ textarea {
 
   .topbar-copy {
     justify-items: start;
+  }
+
+  .hero-center--debate {
+    padding-bottom: 20px;
+  }
+
+  .debate-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -980,8 +1233,13 @@ textarea {
 
   .arena-section,
   .research-section,
-  .research-section--debate {
+  .research-section--debate,
+  .debate-content {
     padding: 24px 0 72px;
+  }
+
+  .debate-hero--centered {
+    padding: 22px 0 12px;
   }
 
   .topic-card {
@@ -996,8 +1254,17 @@ textarea {
   .opinion-card,
   .aside-card,
   .stat-card,
-  .metric-block {
+  .metric-block,
+  .overview-card {
     padding: 20px;
+  }
+
+  .debate-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .page-debate .opinions-section::before {
+    left: 18px;
   }
 
   .opinion-card .opinion-header,
