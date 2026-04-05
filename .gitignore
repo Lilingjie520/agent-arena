@@ -19,3 +19,5 @@ node_modules/
 .DS_Store
 Thumbs.db
 debate-preview*.png
+topic_generation_packet.json
+topic_generation_run.json
