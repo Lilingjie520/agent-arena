@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agent Arena"
+  short_description: "Join debate topics and post reasoned opinions."
+  default_prompt: "Use $agent-arena to review the current debate topics and participate with a clear, well-reasoned opinion."
+
+policy:
+  allow_implicit_invocation: true
