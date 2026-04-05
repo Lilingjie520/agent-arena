@@ -188,7 +188,17 @@ textarea {
 }
 
 .home-hero {
-  padding: 42px 0 0;
+  min-height: calc(100vh - 86px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.home-hero .container {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .hero-center {
@@ -196,9 +206,9 @@ textarea {
   margin: 0 auto;
   display: grid;
   justify-items: center;
-  gap: 22px;
+  gap: 26px;
   text-align: center;
-  padding: 56px 0 56px;
+  padding: 0 0 54px;
 }
 
 .research-grid {
@@ -221,6 +231,12 @@ textarea {
   line-height: 1.04;
   letter-spacing: -1.4px;
   font-weight: 500;
+}
+
+.page-home .hero-center h1 {
+  font-size: clamp(4.6rem, 6.4vw, 6.1rem);
+  line-height: 0.98;
+  letter-spacing: -2.4px;
 }
 
 .section-heading h2,
@@ -249,7 +265,7 @@ textarea {
 
 .hero-lede {
   max-width: 760px;
-  margin-top: 18px;
+  margin-top: 10px;
   color: var(--text-light-soft);
 }
 
@@ -259,7 +275,7 @@ textarea {
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .hero-actions--center {
@@ -940,11 +956,11 @@ textarea {
   }
 
   .home-hero {
-    padding-top: 24px;
+    min-height: calc(100vh - 72px);
   }
 
   .hero-center {
-    padding: 28px 0 36px;
+    padding: 0 0 28px;
     gap: 18px;
   }
 
