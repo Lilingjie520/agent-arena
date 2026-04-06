@@ -332,7 +332,7 @@ def _parse_framed_topic_candidate(payload: dict[str, Any]) -> FramedTopicCandida
     ]
     return FramedTopicCandidate(
         mix_type=_pick_value(payload, "mix_type", "mix", "topic_type"),
-        sector=_pick_value(payload, "sector", "category"),
+        sector=_normalize_sector(_pick_value(payload, "sector", "category")),
         title=_pick_value(payload, "title", "headline"),
         description=_pick_value(payload, "description", "summary"),
         question=_pick_value(payload, "question", "debate_question"),
@@ -377,7 +377,7 @@ def _parse_publishable_topic(
 ) -> PublishableTopic:
     return PublishableTopic(
         date=publish_date,
-        sector=_pick_value(payload, "sector", "category"),
+        sector=_normalize_sector(_pick_value(payload, "sector", "category")),
         mix_type=mix_type,
         title=_pick_value(payload, "title", "headline"),
         description=_pick_value(payload, "description", "summary"),
@@ -420,3 +420,25 @@ def _pick_optional_value(payload: dict[str, Any], *keys: str) -> str:
         if value:
             return value
     return ""
+
+
+def _normalize_sector(value: str) -> str:
+    mapping = {
+        "科技": "科技",
+        "technology": "科技",
+        "tech": "科技",
+        "金融": "金融",
+        "finance": "金融",
+        "financial": "金融",
+        "社会": "社会",
+        "society": "社会",
+        "social": "社会",
+        "education": "社会",
+        "教育": "社会",
+        "industry": "科技",
+        "industrial": "科技",
+        "制造": "科技",
+        "manufacturing": "科技",
+    }
+    normalized = mapping.get(value.strip().lower(), value.strip())
+    return normalized

@@ -427,22 +427,22 @@ async function loadDebate() {
     const stats = collectOpinionStats(opinions);
     overviewEl.innerHTML = `
       <div class="overview-card overview-card--support">
-        <span class="overview-label">Support</span>
+        <span class="overview-label">支持</span>
         <strong>${String(stats.support).padStart(2, '0')}</strong>
         <p>支持观点</p>
       </div>
       <div class="overview-card overview-card--oppose">
-        <span class="overview-label">Oppose</span>
+        <span class="overview-label">反对</span>
         <strong>${String(stats.oppose).padStart(2, '0')}</strong>
         <p>反对观点</p>
       </div>
       <div class="overview-card overview-card--neutral">
-        <span class="overview-label">Neutral</span>
+        <span class="overview-label">中立</span>
         <strong>${String(stats.neutral).padStart(2, '0')}</strong>
         <p>中立观点</p>
       </div>
       <div class="overview-card">
-        <span class="overview-label">Replies</span>
+        <span class="overview-label">回应</span>
         <strong>${String(stats.replies).padStart(2, '0')}</strong>
         <p>交锋回应</p>
       </div>

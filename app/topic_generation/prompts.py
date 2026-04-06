@@ -24,6 +24,7 @@ Rules:
 - Do not write debate topics yet.
 - Focus on meaningful changes, tensions, and conflict points.
 - Each signal must explain why it matters and where the disagreement could emerge.
+- Write all natural-language fields in Simplified Chinese.
 - Return strict JSON only.
 """
 
@@ -37,6 +38,7 @@ Rules:
 - Avoid vague slogans and generic prompts.
 - Make room for both support and opposition.
 - Prefer question structures such as: whether something should happen, whether a shift changes the default strategy, whether short-term gains justify long-term costs, where a boundary should be drawn, or whether old rules still hold after capability growth.
+- Write all natural-language fields in Simplified Chinese.
 - Follow the quality rules below exactly:
 {quality_rules}
 - Return strict JSON only.
@@ -54,7 +56,7 @@ Check each candidate for:
 - weak real-world anchoring
 - inability to expose reasoning depth
 
-Be strict. Return strict JSON only.
+Be strict. Write all explanation fields in Simplified Chinese. Return strict JSON only.
 """
 
 
@@ -66,6 +68,7 @@ Rules:
 - Titles should be short, readable, and concrete.
 - Descriptions should clearly explain the real-world context and disagreement.
 - Preserve private rationale fields for future evaluation.
+- The fields `title`, `description`, `debate_question`, `rationale_private`, `reasoning_focus`, and `expected_positions` must all be written in Simplified Chinese.
 - Enforce the daily mix exactly:
 {mix_policy}
 - Return strict JSON only.
@@ -85,10 +88,10 @@ Return JSON in this shape:
       "source_name": "string",
       "source_url": "string",
       "published_at": "string",
-      "headline": "string",
-      "summary": "string",
-      "why_it_matters": "string",
-      "conflict_points": ["string"],
+      "headline": "简体中文字符串",
+      "summary": "简体中文字符串",
+      "why_it_matters": "简体中文字符串",
+      "conflict_points": ["简体中文字符串"],
       "affected_sectors": ["科技" | "金融" | "社会"]
     }}
   ]
@@ -110,23 +113,23 @@ Return JSON in this shape:
     {{
       "mix_type": "news_driven" | "structural" | "cross_domain",
       "sector": "科技" | "金融" | "社会",
-      "title": "string",
-      "description": "string",
-      "question": "string",
-      "recent_change_anchor": "string",
-      "conflict_axis": "string",
-      "support_case": "string",
-      "oppose_case": "string",
-      "expected_reasoning_signals": ["string"],
+      "title": "简体中文字符串",
+      "description": "简体中文字符串",
+      "question": "简体中文字符串",
+      "recent_change_anchor": "简体中文字符串",
+      "conflict_axis": "简体中文字符串",
+      "support_case": "简体中文字符串",
+      "oppose_case": "简体中文字符串",
+      "expected_reasoning_signals": ["简体中文字符串"],
       "linked_sources": [
         {{
           "source_name": "string",
           "source_url": "string",
           "published_at": "string",
-          "headline": "string",
-          "summary": "string",
-          "why_it_matters": "string",
-          "conflict_points": ["string"],
+          "headline": "简体中文字符串",
+          "summary": "简体中文字符串",
+          "why_it_matters": "简体中文字符串",
+          "conflict_points": ["简体中文字符串"],
           "affected_sectors": ["科技" | "金融" | "社会"]
         }}
       ]
@@ -146,15 +149,15 @@ Return JSON in this shape:
 {{
   "reviews": [
     {{
-      "candidate_title": "string",
+      "candidate_title": "简体中文字符串",
       "passes": true,
       "overall_score": 0.0,
       "realism_score": 0.0,
       "debate_quality_score": 0.0,
       "novelty_score": 0.0,
       "reasoning_depth_score": 0.0,
-      "issues": ["string"],
-      "revision_notes": ["string"]
+      "issues": ["简体中文字符串"],
+      "revision_notes": ["简体中文字符串"]
     }}
   ]
 }}
@@ -173,32 +176,32 @@ Return JSON in this shape:
 {{
   "news_driven": {{
     "sector": "科技" | "金融" | "社会",
-    "title": "string",
-    "description": "string",
-    "debate_question": "string",
-    "rationale_private": "string",
-    "reasoning_focus": ["string"],
-    "expected_positions": ["string"],
+    "title": "简体中文字符串",
+    "description": "简体中文字符串",
+    "debate_question": "简体中文字符串",
+    "rationale_private": "简体中文字符串",
+    "reasoning_focus": ["简体中文字符串"],
+    "expected_positions": ["简体中文字符串"],
     "source_urls": ["string"]
   }},
   "structural": {{
     "sector": "科技" | "金融" | "社会",
-    "title": "string",
-    "description": "string",
-    "debate_question": "string",
-    "rationale_private": "string",
-    "reasoning_focus": ["string"],
-    "expected_positions": ["string"],
+    "title": "简体中文字符串",
+    "description": "简体中文字符串",
+    "debate_question": "简体中文字符串",
+    "rationale_private": "简体中文字符串",
+    "reasoning_focus": ["简体中文字符串"],
+    "expected_positions": ["简体中文字符串"],
     "source_urls": ["string"]
   }},
   "cross_domain": {{
     "sector": "科技" | "金融" | "社会",
-    "title": "string",
-    "description": "string",
-    "debate_question": "string",
-    "rationale_private": "string",
-    "reasoning_focus": ["string"],
-    "expected_positions": ["string"],
+    "title": "简体中文字符串",
+    "description": "简体中文字符串",
+    "debate_question": "简体中文字符串",
+    "rationale_private": "简体中文字符串",
+    "reasoning_focus": ["简体中文字符串"],
+    "expected_positions": ["简体中文字符串"],
     "source_urls": ["string"]
   }}
 }}
