@@ -12,7 +12,7 @@ from xml.etree import ElementTree as ET
 from app.topic_generation.schemas import SectorName, SourceEntry
 
 
-USER_AGENT = "AgentArenaTopicScout/0.2 (+https://github.com/Lilingjie520/agent-arena)"
+USER_AGENT = "AgentArenaTopicScout/0.3 (+https://github.com/Lilingjie520/agent-arena)"
 ATOM_NS = {"atom": "http://www.w3.org/2005/Atom"}
 TAG_RE = re.compile(r"<[^>]+>")
 WHITESPACE_RE = re.compile(r"\s+")
@@ -25,20 +25,22 @@ class FeedSource:
     sector_hints: tuple[SectorName, ...]
 
 
-# DEFAULT_FEED_SOURCES v2
-# Goal:
-# - use sources that are relatively stable for code integration
-# - prefer official or institution-grade feeds
-# - balance product/news, regulation, labor/economic signals
-# - produce enough disagreement-rich context for Scout -> Framing -> Critic
+# DEFAULT_FEED_SOURCES v3
+# Tuned for the current server's observed reachability:
+# - keep proven reachable global sources
+# - drop feeds that returned 403 in server-side curl tests
+# - add education and industrial signals for broader topic diversity
 DEFAULT_FEED_SOURCES: tuple[FeedSource, ...] = (
-    # Product / capability shifts
     FeedSource(
         name="OpenAI News",
         url="https://openai.com/news/rss.xml",
         sector_hints=("科技",),
     ),
-    # Regulation / institutional boundary shifts
+    FeedSource(
+        name="MIT Technology Review",
+        url="https://www.technologyreview.com/feed/",
+        sector_hints=("科技", "社会"),
+    ),
     FeedSource(
         name="SEC Press Releases",
         url="https://www.sec.gov/news/pressreleases.rss",
@@ -49,32 +51,20 @@ DEFAULT_FEED_SOURCES: tuple[FeedSource, ...] = (
         url="https://www.sec.gov/news/speeches-statements.rss",
         sector_hints=("金融", "科技", "社会"),
     ),
-    # Labor / macro / broad economic signals
     FeedSource(
-        name="BLS Latest Numbers",
-        url="https://www.bls.gov/feed/bls_latest.rss",
-        sector_hints=("金融", "社会"),
+        name="UNESCO-UNEVOC News",
+        url="http://www.unevoc.unesco.org/unevoc_news.xml",
+        sector_hints=("社会",),
     ),
     FeedSource(
-        name="BLS Employment Situation",
-        url="https://www.bls.gov/feed/empsit.rss",
-        sector_hints=("金融", "社会"),
+        name="NIST Manufacturing News",
+        url="https://www.nist.gov/news-events/manufacturing/rss.xml",
+        sector_hints=("科技", "社会"),
     ),
     FeedSource(
-        name="BLS JOLTS",
-        url="https://www.bls.gov/feed/jolts.rss",
-        sector_hints=("金融", "社会"),
-    ),
-    # Structural and policy-friendly public data anchors
-    FeedSource(
-        name="US Census Economic Indicators",
-        url="https://www.census.gov/economic-indicators/indicator.xml",
-        sector_hints=("金融", "社会"),
-    ),
-    FeedSource(
-        name="US Census News Releases",
-        url="https://www.census.gov/content/census/en/newsroom/press-releases.xml",
-        sector_hints=("社会", "金融"),
+        name="NIST Manufacturing Innovation Blog",
+        url="https://www.nist.gov/blogs/manufacturing-innovation-blog/rss.xml",
+        sector_hints=("科技", "社会"),
     ),
 )
 

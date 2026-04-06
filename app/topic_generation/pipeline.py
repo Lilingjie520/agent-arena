@@ -302,14 +302,24 @@ def _json_default(value: Any) -> str:
 
 def _parse_source_signal(payload: dict[str, Any]) -> SourceSignal:
     return SourceSignal(
-        source_name=str(payload["source_name"]).strip(),
-        source_url=str(payload["source_url"]).strip(),
-        published_at=str(payload.get("published_at", "")).strip(),
-        headline=str(payload["headline"]).strip(),
-        summary=str(payload.get("summary", "")).strip(),
-        why_it_matters=str(payload["why_it_matters"]).strip(),
-        conflict_points=_string_list(payload.get("conflict_points")),
-        affected_sectors=_string_list(payload.get("affected_sectors")),
+        source_name=_pick_value(payload, "source_name", "source", "outlet"),
+        source_url=_pick_value(payload, "source_url", "url", "link"),
+        published_at=_pick_optional_value(
+            payload,
+            "published_at",
+            "date",
+            "published",
+            "published_date",
+        ),
+        headline=_pick_value(payload, "headline", "title"),
+        summary=_pick_optional_value(payload, "summary", "description"),
+        why_it_matters=_pick_value(payload, "why_it_matters", "importance", "why"),
+        conflict_points=_string_list(
+            payload.get("conflict_points") or payload.get("conflicts")
+        ),
+        affected_sectors=_string_list(
+            payload.get("affected_sectors") or payload.get("sectors")
+        ),
     )
 
 
@@ -321,17 +331,23 @@ def _parse_framed_topic_candidate(payload: dict[str, Any]) -> FramedTopicCandida
         if isinstance(item, dict)
     ]
     return FramedTopicCandidate(
-        mix_type=str(payload["mix_type"]).strip(),
-        sector=str(payload["sector"]).strip(),
-        title=str(payload["title"]).strip(),
-        description=str(payload["description"]).strip(),
-        question=str(payload["question"]).strip(),
-        recent_change_anchor=str(payload["recent_change_anchor"]).strip(),
-        conflict_axis=str(payload["conflict_axis"]).strip(),
-        support_case=str(payload["support_case"]).strip(),
-        oppose_case=str(payload["oppose_case"]).strip(),
+        mix_type=_pick_value(payload, "mix_type", "mix", "topic_type"),
+        sector=_pick_value(payload, "sector", "category"),
+        title=_pick_value(payload, "title", "headline"),
+        description=_pick_value(payload, "description", "summary"),
+        question=_pick_value(payload, "question", "debate_question"),
+        recent_change_anchor=_pick_value(
+            payload,
+            "recent_change_anchor",
+            "anchor",
+            "news_anchor",
+        ),
+        conflict_axis=_pick_value(payload, "conflict_axis", "conflict", "axis"),
+        support_case=_pick_value(payload, "support_case", "pro_case", "support"),
+        oppose_case=_pick_value(payload, "oppose_case", "con_case", "oppose"),
         expected_reasoning_signals=_string_list(
             payload.get("expected_reasoning_signals")
+            or payload.get("reasoning_signals")
         ),
         linked_sources=linked_sources,
     )
@@ -361,15 +377,24 @@ def _parse_publishable_topic(
 ) -> PublishableTopic:
     return PublishableTopic(
         date=publish_date,
-        sector=str(payload["sector"]).strip(),
+        sector=_pick_value(payload, "sector", "category"),
         mix_type=mix_type,
-        title=str(payload["title"]).strip(),
-        description=str(payload["description"]).strip(),
-        debate_question=str(payload["debate_question"]).strip(),
-        rationale_private=str(payload["rationale_private"]).strip(),
-        reasoning_focus=_string_list(payload.get("reasoning_focus")),
-        expected_positions=_string_list(payload.get("expected_positions")),
-        source_urls=_string_list(payload.get("source_urls")),
+        title=_pick_value(payload, "title", "headline"),
+        description=_pick_value(payload, "description", "summary"),
+        debate_question=_pick_value(payload, "debate_question", "question"),
+        rationale_private=_pick_value(
+            payload,
+            "rationale_private",
+            "rationale",
+            "editor_notes",
+        ),
+        reasoning_focus=_string_list(
+            payload.get("reasoning_focus") or payload.get("reasoning_axes")
+        ),
+        expected_positions=_string_list(
+            payload.get("expected_positions") or payload.get("positions")
+        ),
+        source_urls=_string_list(payload.get("source_urls") or payload.get("sources")),
     )
 
 
@@ -377,3 +402,21 @@ def _string_list(value: Any) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item).strip()]
+
+
+def _pick_value(payload: dict[str, Any], *keys: str) -> str:
+    value = _pick_optional_value(payload, *keys)
+    if value:
+        return value
+    raise ValueError(f"Missing required field. Expected one of: {', '.join(keys)}")
+
+
+def _pick_optional_value(payload: dict[str, Any], *keys: str) -> str:
+    for key in keys:
+        raw = payload.get(key)
+        if raw is None:
+            continue
+        value = str(raw).strip()
+        if value:
+            return value
+    return ""
