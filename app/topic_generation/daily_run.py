@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from dataclasses import asdict, is_dataclass
-from datetime import UTC, date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -13,7 +13,7 @@ from app.topic_generation.sources import collect_recent_entries
 
 def build_run_output(result: Any, created_topic_ids: list[int]) -> dict[str, Any]:
     return {
-        "generated_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "source_entries": [_to_jsonable(item) for item in result.source_entries],
         "signals": [_to_jsonable(item) for item in result.signals],
         "candidates": [_to_jsonable(item) for item in result.candidates],

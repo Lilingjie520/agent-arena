@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from dataclasses import asdict
-from datetime import UTC, date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from app.topic_generation.prompts import (
@@ -22,7 +22,7 @@ def build_work_packet(publish_date: date, max_items_per_source: int) -> dict:
     source_brief = build_source_brief(entries)
 
     return {
-        "generated_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "publish_date": publish_date.isoformat(),
         "quality_rules": TOPIC_QUALITY_RULES,
         "mix_policy": TOPIC_MIX_POLICY,

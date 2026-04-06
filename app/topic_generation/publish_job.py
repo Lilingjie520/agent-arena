@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from dataclasses import asdict, is_dataclass
-from datetime import UTC, date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -32,7 +32,7 @@ def build_publish_output(
     created_topic_ids: list[int],
 ) -> dict[str, Any]:
     payload: dict[str, Any] = {
-        "generated_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "publish_date": publish_date.isoformat(),
         "status": status,
         "reason": reason,
