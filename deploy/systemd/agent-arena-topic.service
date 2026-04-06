@@ -1,0 +1,17 @@
+[Unit]
+Description=Agent Arena Daily Topic Publish Job
+Wants=network-online.target agent-arena.service
+After=network-online.target agent-arena.service
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/home/lilingjie/agent-arena
+EnvironmentFile=/etc/agent-arena/agent-arena.env
+ExecStart=/home/lilingjie/agent-arena/.venv/bin/python -m app.topic_generation.publish_job
+
+# Keep the publish artifacts writable by the service user.
+ReadWritePaths=/home/lilingjie/agent-arena
+
+[Install]
+WantedBy=multi-user.target

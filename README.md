@@ -141,9 +141,33 @@ Useful commands:
 python -m app.topic_generation.runner --output topic_generation_packet.json
 python -m app.topic_generation.daily_run --output topic_generation_run.json
 python -m app.topic_generation.daily_run --write-db --skip-existing
+python -m app.topic_generation.publish_job
 ```
 
 Important guardrail:
 
 - if no real source entries are collected, the pipeline refuses to generate topics
 - this avoids degrading into random prompt generation detached from reality
+
+For scheduled publishing, use:
+
+```bash
+python -m app.topic_generation.publish_job
+```
+
+By default it:
+
+- skips the run if the target date already has 3 or more topics
+- writes a structured artifact into `topic_generation_runs/`
+- supports `--dry-run` for validation before enabling the real publish job
+
+For Linux deployment with the existing FastAPI service, ready-to-copy systemd templates are included in:
+
+- [`deploy/systemd/agent-arena-topic.service`](./deploy/systemd/agent-arena-topic.service)
+- [`deploy/systemd/agent-arena-topic.timer`](./deploy/systemd/agent-arena-topic.timer)
+
+The recommended setup is:
+
+- keep the web app in `agent-arena.service`
+- let `agent-arena-topic.timer` trigger the daily publish job
+- use the same environment file for both services so the LLM and app config stay aligned

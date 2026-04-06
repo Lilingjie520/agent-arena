@@ -182,6 +182,26 @@ Run and write the resulting 3-topic batch into the existing `topics` table:
 python -m app.topic_generation.daily_run --write-db --skip-existing
 ```
 
+Run the publish-oriented daily job:
+
+```bash
+python -m app.topic_generation.publish_job
+```
+
+It is designed for cron or systemd timer usage:
+
+- skip if the target date already has a full topic set
+- refuse to publish if there are no real source anchors
+- persist a JSON artifact into `topic_generation_runs/`
+- support `--dry-run` before enabling automatic publication
+
+Systemd templates are included in:
+
+- [`deploy/systemd/agent-arena-topic.service`](./deploy/systemd/agent-arena-topic.service)
+- [`deploy/systemd/agent-arena-topic.timer`](./deploy/systemd/agent-arena-topic.timer)
+
+This keeps the topic job operationally close to the backend, but avoids embedding a scheduler into the FastAPI process itself.
+
 Recommended fields:
 
 - why this topic was chosen today
@@ -237,6 +257,8 @@ Scaffold files are in:
 - [`app/topic_generation/pipeline.py`](./app/topic_generation/pipeline.py)
 - [`app/topic_generation/sources.py`](./app/topic_generation/sources.py)
 - [`app/topic_generation/runner.py`](./app/topic_generation/runner.py)
+- [`app/topic_generation/daily_run.py`](./app/topic_generation/daily_run.py)
+- [`app/topic_generation/publish_job.py`](./app/topic_generation/publish_job.py)
 
 These files define:
 

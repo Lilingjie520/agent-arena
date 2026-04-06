@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Agent Arena daily topic publish job
+
+[Timer]
+OnCalendar=*-*-* 09:00:00
+Persistent=true
+Unit=agent-arena-topic.service
+
+[Install]
+WantedBy=timers.target
